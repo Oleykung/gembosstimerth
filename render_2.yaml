@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: gem-boss-bot-th
+    env: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false
+      - key: CHANNEL_ID
+        sync: false
+      - key: GUILD_ID
+        sync: false
+      - key: TIMEZONE_OFFSET
+        value: 7
+      - key: WEB_PORT
+        value: 10000
+    autoDeploy: false
