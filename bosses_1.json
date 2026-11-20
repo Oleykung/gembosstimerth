@@ -1,0 +1,137 @@
+[
+  {
+    "id": "hill_giant",
+    "name_th": "ฮิลล์ ไจแอนท์",
+    "name_en": "Hill Giant",
+    "map_th": "ทุ่งราบรีโบลโดซ์",
+    "map_en": "Prairie de Reboldoeux",
+    "city_th": "เมืองรีโบลโดซ์",
+    "city_en": "Reboldoeux",
+    "city_key": "reboldoeux",
+    "respawn_hours": 4,
+    "spawn_times_th": [
+      "00:30, 04:30, 08:30, 12:30, 16:30, 20:30"
+    ]
+  },
+  {
+    "id": "nest_golem",
+    "name_th": "โกเลมรังนก",
+    "name_en": "Nest Golem",
+    "map_th": "ป่ารีโบลโดซ์",
+    "map_en": "Forest of Reboldoeux",
+    "city_th": "เมืองรีโบลโดซ์",
+    "city_en": "Reboldoeux",
+    "city_key": "reboldoeux",
+    "respawn_hours": 4
+  },
+  {
+    "id": "kobold_elder",
+    "name_th": "โคโบลด์ เอลเดอร์",
+    "name_en": "Kobold Elder",
+    "map_th": "เหมืองหินรีโบลโดซ์",
+    "map_en": "Stone Pit",
+    "city_th": "เมืองรีโบลโดซ์",
+    "city_en": "Reboldoeux",
+    "city_key": "reboldoeux",
+    "respawn_hours": 4
+  },
+  {
+    "id": "bloody_werebear",
+    "name_th": "บลัดดี้ แวร์แบร์",
+    "name_en": "Bloody Werebear",
+    "map_th": "อุโมงค์รีโบลโดซ์",
+    "map_en": "Reboldoeux Tunnel",
+    "city_th": "เมืองรีโบลโดซ์",
+    "city_en": "Reboldoeux",
+    "city_key": "reboldoeux",
+    "respawn_hours": 4
+  },
+  {
+    "id": "valanche_pollux",
+    "name_th": "วาลานเช่และพอลลักซ์",
+    "name_en": "Valanche and Pollux",
+    "map_th": "ชายฝั่งคอยมบรา",
+    "map_en": "Coimbra Coast",
+    "city_th": "ท่าเรือคอยมบรา",
+    "city_en": "The Port of Coimbra",
+    "city_key": "coimbra",
+    "respawn_hours": 6
+  },
+  {
+    "id": "chaos_dullahan",
+    "name_th": "เคออส ดูลาฮาน",
+    "name_en": "Chaos Dullahan",
+    "map_th": "ป่าลึกคอยมบรา",
+    "map_en": "Deep Forest Coimbra",
+    "city_th": "ท่าเรือคอยมบรา",
+    "city_en": "The Port of Coimbra",
+    "city_key": "coimbra",
+    "respawn_hours": 6
+  },
+  {
+    "id": "saber_tiger",
+    "name_th": "เซเบอร์ ไทเกอร์",
+    "name_en": "Saber Tiger",
+    "map_th": "ทุ่งหญ้าคอยมบรา",
+    "map_en": "Coimbra Plain",
+    "city_th": "ท่าเรือคอยมบรา",
+    "city_en": "The Port of Coimbra",
+    "city_key": "coimbra",
+    "respawn_hours": 6
+  },
+  {
+    "id": "sorakotomi",
+    "name_th": "โซราโคโตมิ",
+    "name_en": "Sorakotomi",
+    "map_th": "ถ้ำคอยมบรา",
+    "map_en": "Coimbra Cave",
+    "city_th": "ท่าเรือคอยมบรา",
+    "city_en": "The Port of Coimbra",
+    "city_key": "coimbra",
+    "respawn_hours": 6
+  },
+  {
+    "id": "mighty_victor",
+    "name_th": "ไมตี้ วิคเตอร์",
+    "name_en": "Mighty Victor",
+    "map_th": "ที่ราบสูงอูช",
+    "map_en": "Plateau of Auch",
+    "city_th": "เมืองอูช",
+    "city_en": "City of Auch",
+    "city_key": "auch",
+    "respawn_hours": 8
+  },
+  {
+    "id": "stone_cortes",
+    "name_th": "สโตน คอร์เทส",
+    "name_en": "Stone Cortes",
+    "map_th": "ปราสาทอูช",
+    "map_en": "Castle of Auch",
+    "city_th": "เมืองอูช",
+    "city_en": "City of Auch",
+    "city_key": "auch",
+    "respawn_hours": 8
+  },
+  {
+    "id": "ancient_phinx",
+    "name_th": "แองเชี่ยน ฟิงซ์",
+    "name_en": "Ancient Phinx",
+    "map_th": "ทะเลทรายอูช",
+    "map_en": "Desert of Auch",
+    "city_th": "เมืองอูช",
+    "city_en": "City of Auch",
+    "city_key": "auch",
+    "respawn_hours": 8
+  },
+  {
+    "id": "witch_bondage",
+    "name_th": "วิทช์ ออฟ บอนเดจ",
+    "name_en": "Witch of Bondage",
+    "map_th": "หอคอยอูช",
+    "map_en": "Tower of Auch",
+    "city_th": "เมืองอูช",
+    "city_en": "City of Auch",
+    "city_key": "auch",
+    "respawn_hours": 8
+  }
+]

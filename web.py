@@ -60,6 +60,16 @@ button:hover { background:#cc0000; }
 <button onclick="filterCity('coimbra')">คอยมบรา Coimbra</button>
 <button onclick="filterCity('auch')">อูช Auch</button>
 </div>
+<div style="background:#2a0000; border:2px solid #ff0000; border-radius:12px; padding:14px; margin:16px 0;">
+  <div style="font-size:1.1em; font-weight:800; color:#fff; margin-bottom:10px;">🔄 RESET บอส</div>
+  <button onclick="resetAll()" style="background:#ff0000; font-size:1.1em; padding:12px 20px; font-weight:800; border:none; border-radius:8px; color:white; cursor:pointer;">🔄 RESET บอสทุกตัว (12 ตัว)</button>
+  <div style="margin-top:10px;">
+    <button onclick="resetCity('reboldoeux')" style="background:#ff6600; border:none; padding:8px 12px; border-radius:8px; color:white; cursor:pointer;">Reset Reboldoeux (4 ตัว)</button>
+    <button onclick="resetCity('coimbra')" style="background:#ffaa00; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">Reset Coimbra (4 ตัว)</button>
+    <button onclick="resetCity('auch')" style="background:#aa00ff; border:none; padding:8px 12px; border-radius:8px; color:white; cursor:pointer;">Reset Auch (4 ตัว)</button>
+  </div>
+  <div id="resetMsg" style="color:#0f0; margin-top:8px;"></div>
+</div>
 <div id="bossList"></div>
 
 <script>
@@ -97,6 +107,20 @@ function render(list) {
     `;
     container.appendChild(div);
   });
+}
+async function resetAll() {
+  if (!confirm('ยืนยัน RESET บอสทั้ง 12 ตัว ใช่ไหม? เวลาจะถูกตั้งใหม่ทั้งหมด')) return;
+  const res = await fetch('/api/reset_all', {method:'POST'});
+  const data = await res.json();
+  document.getElementById('resetMsg').innerText = '✅ Reset บอสทั้ง 12 ตัวเรียบร้อย - ' + new Date().toLocaleString('th-TH');
+  load();
+}
+async function resetCity(city) {
+  const cityName = city==='reboldoeux'?'Reboldoeux': city==='coimbra'?'Coimbra':'Auch';
+  if (!confirm('ยืนยัน RESET บอสเมือง '+cityName+' ทั้ง 4 ตัว ใช่ไหม?')) return;
+  await fetch('/api/reset_city', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({city})});
+  document.getElementById('resetMsg').innerText = '✅ Reset บอสเมือง '+cityName+' เรียบร้อย';
+  load();
 }
 async function killBoss(id) {
   if (!confirm('ยืนยันว่าบอสตาย? จะรีเซ็ตเวลาใหม่')) return;
@@ -160,7 +184,48 @@ def api_kill():
         json.dump(timers, f, ensure_ascii=False, indent=2)
     return jsonify({"ok":True, "next_spawn": next_spawn.isoformat()})
 
+
+@app.route("/api/reset_all", methods=["POST"])
+def api_reset_all():
+    timers = load_timers()
+    bosses = load_bosses()
+    now = datetime.now(ICT)
+    for b in bosses:
+        next_spawn = now + timedelta(hours=b.get("respawn_hours",4))
+        timers[b["id"]] = {
+            "last_death": now.isoformat(),
+            "next_spawn": next_spawn.isoformat(),
+            "notified_10min": False,
+            "notified_spawn": False
+        }
+    with open(TIMERS_FILE, "w", encoding="utf-8") as f:
+        json.dump(timers, f, ensure_ascii=False, indent=2)
+    return jsonify({"ok": True, "message": "Reset บอสทั้ง 12 ตัวเรียบร้อย", "count": len(bosses)})
+
+@app.route("/api/reset_city", methods=["POST"])
+def api_reset_city():
+    data = request.json
+    city = data.get("city")
+    timers = load_timers()
+    bosses = load_bosses()
+    now = datetime.now(ICT)
+    count = 0
+    for b in bosses:
+        if b["city_key"] == city:
+            next_spawn = now + timedelta(hours=b.get("respawn_hours",4))
+            timers[b["id"]] = {
+                "last_death": now.isoformat(),
+                "next_spawn": next_spawn.isoformat(),
+                "notified_10min": False,
+                "notified_spawn": False
+            }
+            count += 1
+    with open(TIMERS_FILE, "w", encoding="utf-8") as f:
+        json.dump(timers, f, ensure_ascii=False, indent=2)
+    return jsonify({"ok": True, "city": city, "count": count})
+
 if __name__ == "__main__":
+
     port = int(os.getenv("WEB_PORT", "5000"))
     print(f"Web running http://localhost:{port} - ไทยแดง เหลืองอังกฤษ - kill boss ได้")
     app.run(host="0.0.0.0", port=port, debug=False)

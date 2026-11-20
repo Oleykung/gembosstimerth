@@ -1,73 +1,73 @@
 {
   "hill_giant": {
     "last_death": null,
-    "next_spawn": "2026-11-20T17:00:12.248769+07:00",
+    "next_spawn": "2026-11-21T03:23:30.493858+07:00",
     "notified_10min": false,
     "notified_spawn": false
   },
   "nest_golem": {
     "last_death": null,
-    "next_spawn": "2026-11-20T17:00:12.248769+07:00",
+    "next_spawn": "2026-11-21T03:23:30.493858+07:00",
     "notified_10min": false,
     "notified_spawn": false
   },
   "kobold_elder": {
     "last_death": null,
-    "next_spawn": "2026-11-20T17:00:12.248769+07:00",
+    "next_spawn": "2026-11-21T03:23:30.493858+07:00",
     "notified_10min": false,
     "notified_spawn": false
   },
   "bloody_werebear": {
     "last_death": null,
-    "next_spawn": "2026-11-20T17:00:12.248769+07:00",
+    "next_spawn": "2026-11-21T03:23:30.493858+07:00",
     "notified_10min": false,
     "notified_spawn": false
   },
   "valanche_pollux": {
     "last_death": null,
-    "next_spawn": "2026-11-20T19:00:12.248769+07:00",
+    "next_spawn": "2026-11-21T05:23:30.493858+07:00",
     "notified_10min": false,
     "notified_spawn": false
   },
   "chaos_dullahan": {
     "last_death": null,
-    "next_spawn": "2026-11-20T19:00:12.248769+07:00",
+    "next_spawn": "2026-11-21T05:23:30.493858+07:00",
     "notified_10min": false,
     "notified_spawn": false
   },
   "saber_tiger": {
     "last_death": null,
-    "next_spawn": "2026-11-20T19:00:12.248769+07:00",
+    "next_spawn": "2026-11-21T05:23:30.493858+07:00",
     "notified_10min": false,
     "notified_spawn": false
   },
   "sorakotomi": {
     "last_death": null,
-    "next_spawn": "2026-11-20T19:00:12.248769+07:00",
+    "next_spawn": "2026-11-21T05:23:30.493858+07:00",
     "notified_10min": false,
     "notified_spawn": false
   },
   "mighty_victor": {
     "last_death": null,
-    "next_spawn": "2026-11-20T21:00:12.248769+07:00",
+    "next_spawn": "2026-11-21T07:23:30.493858+07:00",
     "notified_10min": false,
     "notified_spawn": false
   },
   "stone_cortes": {
     "last_death": null,
-    "next_spawn": "2026-11-20T21:00:12.248769+07:00",
+    "next_spawn": "2026-11-21T07:23:30.493858+07:00",
     "notified_10min": false,
     "notified_spawn": false
   },
   "ancient_phinx": {
     "last_death": null,
-    "next_spawn": "2026-11-20T21:00:12.248769+07:00",
+    "next_spawn": "2026-11-21T07:23:30.493858+07:00",
     "notified_10min": false,
     "notified_spawn": false
   },
   "witch_bondage": {
     "last_death": null,
-    "next_spawn": "2026-11-20T21:00:12.248769+07:00",
+    "next_spawn": "2026-11-21T07:23:30.493858+07:00",
     "notified_10min": false,
     "notified_spawn": false
   }

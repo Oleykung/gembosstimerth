@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gem Boss Timer TH - Granado Espada M | 12 บอสเซิร์ฟไทย</title>
+<meta name="description" content="Gem Boss Timer TH - ตารางบอส Granado Espada M เซิร์ฟไทย Reboldoeux Coimbra Auch แจ้งเตือน 10 นาที">
+<style>
+*{box-sizing:border-box} body{background:#0f0f0f;color:#eee;font-family:'Kanit',system-ui,sans-serif;margin:0;padding:16px}
+.top{background:linear-gradient(90deg,#ff0000,#ff6600);padding:18px;border-radius:14px;text-align:center}
+.top h1{margin:0;font-size:28px} .top p{margin:4px 0 0;opacity:.9}
+.domain{background:#1a1a1a;border:1px solid #333;padding:12px;border-radius:10px;margin:14px 0;text-align:center}
+.domain b{color:#0f0}
+.reset-box{background:#2a0000;border:2px solid #ff0000;border-radius:12px;padding:14px;margin:14px 0}
+.reset-box button{border:none;padding:12px 18px;border-radius:8px;cursor:pointer;font-weight:800;color:#fff;font-size:15px;margin:4px}
+.btn-all{background:#ff0000} .btn-city1{background:#ff6600} .btn-city2{background:#ffaa00;color:#000} .btn-city3{background:#aa00ff}
+.filter button{background:#333;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;margin:3px}
+.filter button.active{background:#ff0000}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:14px}
+.card{background:#1e1e1e;border-radius:12px;padding:16px;border-left:6px solid #ff0000}
+.th{color:#ff4444;font-size:26px;font-weight:800;line-height:1.1} .en{color:#ffeb3b;font-size:15px;margin-top:2px}
+.map-th{color:#ff8888;margin-top:8px} .map-en{color:#ffe082}
+.timer{margin-top:10px;font-size:16px} .kill{background:#ff0000;color:#fff;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;margin-top:8px;width:100%}
+.badge{display:inline-block;background:#333;padding:2px 8px;border-radius:20px;font-size:12px;margin-right:4px}
+#clock{color:#0f0;text-align:center;margin:8px 0}
+footer{color:#888;text-align:center;margin:20px 0;font-size:13px}
+</style>
+</head>
+<body>
+<div class="top"><h1>🎮 Gem Boss Timer TH</h1><p>Granado Espada M - บอส 12 ตัว เซิร์ฟไทย | Reboldoeux • Coimbra • Auch</p></div>
+<div class="domain">🌐 โดเมนฟรีของคุณ: <b>gembosstimerth.vercel.app</b> &nbsp;|&nbsp; สำรอง: <b>gembosstimerth.netlify.app</b> &nbsp;|&nbsp; <b>gembosstimerth.pages.dev</b><br><small>ใช้ฟรีตลอดชีพ ไม่ต้องจ่ายค่าโดเมน .com</small></div>
+<div id="clock"></div>
+
+<div class="reset-box">
+<div style="font-weight:800;font-size:18px">🔄 RESET บอส</div>
+<button class="btn-all" onclick="resetAll()">🔄 RESET บอสทุกตัว (12 ตัว)</button>
+<div>
+<button class="btn-city1" onclick="resetCity('reboldoeux')">Reset Reboldoeux (4 ตัว)</button>
+<button class="btn-city2" onclick="resetCity('coimbra')">Reset Coimbra (4 ตัว)</button>
+<button class="btn-city3" onclick="resetCity('auch')">Reset Auch (4 ตัว)</button>
+</div>
+<div id="resetMsg" style="color:#0f0;margin-top:8px"></div>
+</div>
+
+<div class="filter">
+<button class="active" onclick="filterCity('all',this)">ทั้งหมด 12 ตัว</button>
+<button onclick="filterCity('reboldoeux',this)">รีโบลโดซ์</button>
+<button onclick="filterCity('coimbra',this)">คอยมบรา</button>
+<button onclick="filterCity('auch',this)">อูช</button>
+</div>
+
+<div class="grid" id="bossList"></div>
+<footer>Gem Boss Timer TH • ไทยแดง #ff4444 / อังกฤษเหลือง #ffeb3b • ข้อมูลเก็บในเครื่องคุณ (localStorage) • ใช้ /reset_all ใน Discord ได้ด้วย</footer>
+
+<script>
+const BOSSES = [
+  {
+    "id": "hill_giant",
+    "name_th": "ฮิลล์ ไจแอนท์",
+    "name_en": "Hill Giant",
+    "map_th": "ทุ่งราบรีโบลโดซ์",
+    "map_en": "Prairie de Reboldoeux",
+    "city_th": "เมืองรีโบลโดซ์",
+    "city_en": "Reboldoeux",
+    "city_key": "reboldoeux",
+    "respawn_hours": 4,
+    "spawn_times_th": [
+      "00:30, 04:30, 08:30, 12:30, 16:30, 20:30"
+    ]
+  },
+  {
+    "id": "nest_golem",
+    "name_th": "โกเลมรังนก",
+    "name_en": "Nest Golem",
+    "map_th": "ป่ารีโบลโดซ์",
+    "map_en": "Forest of Reboldoeux",
+    "city_th": "เมืองรีโบลโดซ์",
+    "city_en": "Reboldoeux",
+    "city_key": "reboldoeux",
+    "respawn_hours": 4
+  },
+  {
+    "id": "kobold_elder",
+    "name_th": "โคโบลด์ เอลเดอร์",
+    "name_en": "Kobold Elder",
+    "map_th": "เหมืองหินรีโบลโดซ์",
+    "map_en": "Stone Pit",
+    "city_th": "เมืองรีโบลโดซ์",
+    "city_en": "Reboldoeux",
+    "city_key": "reboldoeux",
+    "respawn_hours": 4
+  },
+  {
+    "id": "bloody_werebear",
+    "name_th": "บลัดดี้ แวร์แบร์",
+    "name_en": "Bloody Werebear",
+    "map_th": "อุโมงค์รีโบลโดซ์",
+    "map_en": "Reboldoeux Tunnel",
+    "city_th": "เมืองรีโบลโดซ์",
+    "city_en": "Reboldoeux",
+    "city_key": "reboldoeux",
+    "respawn_hours": 4
+  },
+  {
+    "id": "valanche_pollux",
+    "name_th": "วาลานเช่และพอลลักซ์",
+    "name_en": "Valanche and Pollux",
+    "map_th": "ชายฝั่งคอยมบรา",
+    "map_en": "Coimbra Coast",
+    "city_th": "ท่าเรือคอยมบรา",
+    "city_en": "The Port of Coimbra",
+    "city_key": "coimbra",
+    "respawn_hours": 6
+  },
+  {
+    "id": "chaos_dullahan",
+    "name_th": "เคออส ดูลาฮาน",
+    "name_en": "Chaos Dullahan",
+    "map_th": "ป่าลึกคอยมบรา",
+    "map_en": "Deep Forest Coimbra",
+    "city_th": "ท่าเรือคอยมบรา",
+    "city_en": "The Port of Coimbra",
+    "city_key": "coimbra",
+    "respawn_hours": 6
+  },
+  {
+    "id": "saber_tiger",
+    "name_th": "เซเบอร์ ไทเกอร์",
+    "name_en": "Saber Tiger",
+    "map_th": "ทุ่งหญ้าคอยมบรา",
+    "map_en": "Coimbra Plain",
+    "city_th": "ท่าเรือคอยมบรา",
+    "city_en": "The Port of Coimbra",
+    "city_key": "coimbra",
+    "respawn_hours": 6
+  },
+  {
+    "id": "sorakotomi",
+    "name_th": "โซราโคโตมิ",
+    "name_en": "Sorakotomi",
+    "map_th": "ถ้ำคอยมบรา",
+    "map_en": "Coimbra Cave",
+    "city_th": "ท่าเรือคอยมบรา",
+    "city_en": "The Port of Coimbra",
+    "city_key": "coimbra",
+    "respawn_hours": 6
+  },
+  {
+    "id": "mighty_victor",
+    "name_th": "ไมตี้ วิคเตอร์",
+    "name_en": "Mighty Victor",
+    "map_th": "ที่ราบสูงอูช",
+    "map_en": "Plateau of Auch",
+    "city_th": "เมืองอูช",
+    "city_en": "City of Auch",
+    "city_key": "auch",
+    "respawn_hours": 8
+  },
+  {
+    "id": "stone_cortes",
+    "name_th": "สโตน คอร์เทส",
+    "name_en": "Stone Cortes",
+    "map_th": "ปราสาทอูช",
+    "map_en": "Castle of Auch",
+    "city_th": "เมืองอูช",
+    "city_en": "City of Auch",
+    "city_key": "auch",
+    "respawn_hours": 8
+  },
+  {
+    "id": "ancient_phinx",
+    "name_th": "แองเชี่ยน ฟิงซ์",
+    "name_en": "Ancient Phinx",
+    "map_th": "ทะเลทรายอูช",
+    "map_en": "Desert of Auch",
+    "city_th": "เมืองอูช",
+    "city_en": "City of Auch",
+    "city_key": "auch",
+    "respawn_hours": 8
+  },
+  {
+    "id": "witch_bondage",
+    "name_th": "วิทช์ ออฟ บอนเดจ",
+    "name_en": "Witch of Bondage",
+    "map_th": "หอคอยอูช",
+    "map_en": "Tower of Auch",
+    "city_th": "เมืองอูช",
+    "city_en": "City of Auch",
+    "city_key": "auch",
+    "respawn_hours": 8
+  }
+];
+function loadTimers(){
+  let t = JSON.parse(localStorage.getItem('gem_timers')||'{}');
+  if(Object.keys(t).length===0){
+    const now = Date.now();
+    BOSSES.forEach(b=>{ t[b.id]= now + b.respawn_hours*3600*1000; });
+    localStorage.setItem('gem_timers', JSON.stringify(t));
+  }
+  return t;
+}
+let timers = loadTimers();
+let currentFilter='all';
+function render(){
+  const c=document.getElementById('bossList'); c.innerHTML='';
+  const list = BOSSES.filter(b=> currentFilter==='all' || b.city_key===currentFilter);
+  list.forEach(b=>{
+    const next = timers[b.id];
+    const diff = next - Date.now();
+    let status = diff<=0 ? '🔥 เกิดแล้ว!' : `⏰ อีก ${Math.floor(diff/3600000)}ชม. ${Math.floor(diff%3600000/60000)}นาที`;
+    const div=document.createElement('div'); div.className='card';
+    div.innerHTML=`
+      <div class="th">${b.name_th}</div>
+      <div class="en">${b.name_en}</div>
+      <div class="map-th">## แผนที่: ${b.map_th} | เมือง: ${b.city_th}</div>
+      <div class="map-en">-# Map: ${b.map_en} | City: ${b.city_en}</div>
+      <div class="timer">${status} • เกิดทุก ${b.respawn_hours}ชม. • Next: ${new Date(next).toLocaleString('th-TH',{timeZone:'Asia/Bangkok'})}</div>
+      <button class="kill" onclick="killBoss('${b.id}')">kill boss - แจ้งตาย</button>
+    `;
+    c.appendChild(div);
+  });
+}
+function save(){ localStorage.setItem('gem_timers', JSON.stringify(timers)); render(); }
+function killBoss(id){
+  if(!confirm('ยืนยันว่าบอสตาย? จะรีเซ็ตเวลาใหม่')) return;
+  const b=BOSSES.find(x=>x.id===id);
+  timers[id]= Date.now()+ b.respawn_hours*3600*1000;
+  save();
+}
+function resetAll(){
+  if(!confirm('ยืนยัน RESET บอสทั้ง 12 ตัว ใช่ไหม? เวลาจะถูกตั้งใหม่ทั้งหมด')) return;
+  const now=Date.now();
+  BOSSES.forEach(b=> timers[b.id]= now + b.respawn_hours*3600*1000);
+  document.getElementById('resetMsg').innerText='✅ Reset บอสทั้ง 12 ตัวเรียบร้อย - '+new Date().toLocaleString('th-TH');
+  save();
+}
+function resetCity(city){
+  const name = city==='reboldoeux'?'Reboldoeux':city==='coimbra'?'Coimbra':'Auch';
+  if(!confirm('ยืนยัน RESET บอสเมือง '+name+' ทั้ง 4 ตัว ใช่ไหม?')) return;
+  const now=Date.now();
+  BOSSES.filter(b=>b.city_key===city).forEach(b=> timers[b.id]= now + b.respawn_hours*3600*1000);
+  document.getElementById('resetMsg').innerText='✅ Reset บอสเมือง '+name+' เรียบร้อย';
+  save();
+}
+function filterCity(k,btn){
+  currentFilter=k;
+  document.querySelectorAll('.filter button').forEach(x=>x.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  render();
+}
+function tick(){ document.getElementById('clock').innerText='เวลาไทย (ICT): '+new Date().toLocaleString('th-TH',{timeZone:'Asia/Bangkok'}); }
+setInterval(tick,1000); setInterval(render,30000); render(); tick();
+</script>
+</body>
+</html>
