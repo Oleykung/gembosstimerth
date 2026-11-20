@@ -1,0 +1,5 @@
+DISCORD_TOKEN=ใส่โทเคนบอทของคุณตรงนี้
+CHANNEL_ID=ใส่IDห้องที่จะให้บอทแจ้งเตือน
+GUILD_ID=ใส่IDเซิร์ฟเวอร์ดิสคอร์ด (ถ้ามี เพื่อ sync ไว)
+TIMEZONE_OFFSET=7
+WEB_PORT=5000
